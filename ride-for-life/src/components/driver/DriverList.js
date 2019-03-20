@@ -1,20 +1,26 @@
 import React from 'react'
-import drivers from '../../data'
+import axiosConfig from '../../AxiosConfig'
+import axios from 'axios'
+import { apiUri } from '../../GlobalVariables'
 
 class DriverList extends React.Component {
     constructor() {
         super();
         this.state ={
-            drivers: []
+            drivers: [],
+            error: ''
         }
     }
 
     componentDidMount() {
-        this.setState({ drivers: drivers})
+        axios
+        .get(`${apiUri}/api/users`, axiosConfig)
+        .then(response => {this.setState({drivers: response.data})})
+        .catch(error => {this.setState({error: error})})
     }
     render() {
         return (
-            <div>
+            <div className='row'>
                 {this.state.drivers.map(eachDriver => (
                 <div className='list' key={eachDriver.id}>
                     <img src={eachDriver.img} alt='profile' />

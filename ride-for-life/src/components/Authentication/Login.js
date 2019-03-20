@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { Form, Input } from '../Styled-Components/Components'
 import { apiUri } from '../../GlobalVariables'
-import axiosConfig from '../../AxiosConfig'
+// import axiosConfig from '../../AxiosConfig'
 import axios from 'axios'
 
 
