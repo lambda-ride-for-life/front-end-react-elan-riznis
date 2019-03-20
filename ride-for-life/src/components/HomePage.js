@@ -1,26 +1,41 @@
 import React from 'react'
-// import Login from './Authentication/Login'
 import Authenticate from './Authentication/Authenticate'
 import DisplayForm from './Authentication/DisplayForm'
-// import { Route } from 'react-router-dom'
+
+import DriverList from './driver/DriverList'
+import PrivateRoute from './Authentication/PrivateRoute'
+
+import Login from './Authentication/Login'
+import SignUp from './Authentication/SignUp'
+import {Route} from 'react-router-dom'
+
 
 class HomePage extends React.Component {
     constructor() {
         super();
-        this.state ={}
+        this.state ={
+            // drivers: []
+        }
     }
+
+    // componentDidMount() {
+    //     this.setState({ drivers: drivers})
+    // }
 
 
 
     render() {
         return(
+            
             <>
                 Hi
-                
+                <Route exact path='/' component={Login} />
+                <Route exact path='/signup' component={SignUp} />
+                <PrivateRoute path='/list' component={DriverList} />
             </>
         )
     }
 } 
 
 
-export default Authenticate(HomePage)(DisplayForm)
+export default HomePage

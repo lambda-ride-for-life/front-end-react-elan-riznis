@@ -9,7 +9,7 @@ const Authenticate = App => Login =>
       };
     }
     componentDidMount() {
-      if (!localStorage.getItem('username') || !localStorage.getItem('password')) {
+      if (!localStorage.getItem('token')) {
         this.setState({ loggedIn: false });
       } else {
         this.setState({ loggedIn: true });
