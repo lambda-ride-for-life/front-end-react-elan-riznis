@@ -3,6 +3,7 @@ import React from 'react'
 // import DisplayForm from './Authentication/DisplayForm'
 
 import DriverList from './driver/DriverList'
+import Driver from './driver/Driver'
 import PrivateRoute from './Authentication/PrivateRoute'
 
 import Login from './Authentication/Login'
@@ -31,7 +32,8 @@ class HomePage extends React.Component {
                 
                 <Route exact path='/' component={Login} />
                 <Route exact path='/signup' component={SignUp} />
-                <PrivateRoute path='/list' component={DriverList} />
+                <PrivateRoute exact path='/list' component={DriverList} />
+                <PrivateRoute exact path='/list/:id' component={Driver} />
             </>
         )
     }
