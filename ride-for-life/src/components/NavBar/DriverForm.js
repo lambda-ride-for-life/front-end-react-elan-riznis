@@ -7,7 +7,7 @@ class DriverForm extends Component {
       driver: {
         name: '',
         age: '',
-        city: '',
+        location: '',
         price: ''
       }
     };
@@ -19,11 +19,11 @@ class DriverForm extends Component {
       driver: {
         name: '',
         age: '',
-        city: '',
+        location: '',
         price: '',
       }
     });
-    this.props.addDriver(event, this.state.driver)
+    this.props.addDriver(this.state.driver)
   }
 
   handleInputChange = e => {
@@ -54,20 +54,20 @@ class DriverForm extends Component {
             value={this.state.driver.age}
             name="age"
           />
-          {/* <input
+          <input
             type='text'
             onChange={this.handleInputChange}
             placeholder="city"
-            value={this.state.driver.city}
-            name="city"
-          /> */}
-          {/* <input
+            value={this.state.driver.location}
+            name="location"
+          />
+          <input
             type='number'
             onChange={this.handleInputChange}
             placeholder="price"
             value={this.state.driver.price}
             name="price"
-          /> */}
+          />
           <button type="submit">Add a Driver</button>
         </form>
       </div>

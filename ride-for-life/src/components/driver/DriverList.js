@@ -21,11 +21,22 @@ class DriverList extends React.Component {
         .catch(error => {this.setState({error: error})})
     }
 
+    // componentDidUpdate(prevState) {
+    //     if (prevState.drivers !== this.state.drivers) {
+    //          axios
+    //     .get(`${apiUri}/api/drivers`, axiosConfig)
+    //     .then(response => {this.setState({drivers: response.data})})
+    //     .catch(error => {this.setState({error: error})})
+    //     }
+    // }
     deleteDriver = (e, id) => {
         e.preventDefault()
         axios
         .delete(`${apiUri}/api/drivers/${id}`, axiosConfig)
-        .then(response => this.setState({drivers: response.data}))
+        
+        .then(response => {
+            
+            this.setState({drivers: response.data})})
         .catch(error => console.log(error))
         this.props.history.push('/list')
     }
