@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import { Form, Input } from '../Styled-Components/Components'
+import axios from 'axios'
+import { apiUri } from '../../GlobalVariables'
 
 
 
@@ -8,6 +11,7 @@ class SignUp extends Component {
     super(props);
     this.state = {
       username: '',
+      password: '',
       fullName: '',
       city: '',
       age: ''
@@ -18,41 +22,50 @@ class SignUp extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-//   handleLoginSubmit = e => {
-//     const username = this.state.username;
-//     const password = this.state.password
-//     localStorage.setItem('username', username);
-//     localStorage.setItem('password', password);
-//     window.location.reload();
-//   };
+  handleSignUpSubmit = e => {
+    e.preventDefault()
+    const {username, password} = this.state;
+    const registerInfo = {username, password}
+    // const password = this.state.password;
+    axios 
+    .post(`${apiUri}/api/auth/register`, registerInfo)
+    .then(response => {
+      // localStorage.setItem(response)
+      console.log(response)
+    })
+    .catch(error => console.log(error))
+    // localStorage.setItem('username', username);
+    // localStorage.setItem('password', password);
+    // window.location.reload();
+  };
 
   render() {
     return (
-      <form className="login">
+      <Form className="login">
         <div>Type Your Credentials</div>
         
-          <input
+          <Input
             type="text"
             placeholder="User Name"
             name="username"
             value={this.state.username}
             onChange={this.handleInputChange}
           />
-          <input
-            type="password"
-            placeholder="Full Name"
+          <Input
+            type="text"
+            placeholder="password"
             name="password"
-            value={this.state.fullName}
+            value={this.state.password}
             onChange={this.handleInputChange}
           />
-          <input
+          <Input
             type="text"
             placeholder="City"
             name="City"
             value={this.state.city}
             onChange={this.handleInputChange}
           />
-          <input
+          <Input
             type="number"
             placeholder="Age"
             name="age"
@@ -60,7 +73,7 @@ class SignUp extends Component {
             onChange={this.handleInputChange}
           />
           <br />
-          <button>
+          <button onClick={this.handleSignUpSubmit}>
             Sign Up
           </button>
           <Link to='/'><button>
@@ -68,7 +81,7 @@ class SignUp extends Component {
           </button></Link>
          
         
-      </form>
+      </Form>
     );
   }
 }
