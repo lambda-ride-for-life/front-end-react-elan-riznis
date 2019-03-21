@@ -1,20 +1,38 @@
 import React from 'react'
+import axios from 'axios'
+import { apiUri } from '../../GlobalVariables'
+import axiosConfig from '../../AxiosConfig'
+import DriverForm from './DriverForm'
 
 
 class AddUser extends React.Component{
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state ={
-            driver: props.eachDriver
+           driver: [],
+           error: ''
         }
     }
 
+
+    addDriver = (e, driver) => {
+        e.preventDefault();
+        axios
+        .post(`${apiUri}/api/drivers/`, driver, axiosConfig)
+        .then(response => {console.log(response) 
+            this.setState({driver: response.data})})
+        .catch(error => {console.log(error.message)
+            console.log(driver)
+            console.log(axiosConfig)
+            this.setState({error: error})})
+    }
     
 
 
     render() {
+
         return(
-            <div>hello</div>
+            <DriverForm addDriver={this.addDriver}/>
         )
     }
 }

@@ -1,11 +1,9 @@
 import React from 'react'
 import axios from 'axios'
-import { NavLink } from 'react-router-dom'
 import { apiUri } from '../../GlobalVariables'
 import axiosConfig from '../../AxiosConfig'
-import Driver from './Driver'
 import Drivers from './Drivers'
-import AddUser from '../NavBar/AddUser'
+
 
 class DriverList extends React.Component {
     constructor() {
@@ -18,7 +16,7 @@ class DriverList extends React.Component {
 
     componentDidMount() {
         axios
-        .get(`${apiUri}/api/users`, axiosConfig)
+        .get(`${apiUri}/api/drivers`, axiosConfig)
         .then(response => {this.setState({drivers: response.data})})
         .catch(error => {this.setState({error: error})})
     }
@@ -26,17 +24,12 @@ class DriverList extends React.Component {
     deleteDriver = (e, id) => {
         e.preventDefault()
         axios
-        .delete(`${apiUri}/api/drivers/${id}`)
+        .delete(`${apiUri}/api/drivers/${id}`, axiosConfig)
         .then(response => this.setState({drivers: response.data}))
         .catch(error => console.log(error))
         this.props.history.push('/list')
     }
 
-    addDriver = (e, driver) => {
-        e.preventDefault();
-        axios
-        .post()
-    }
 
     // updateDriver = (e,) => {
     //     e.preventDefault()

@@ -32,7 +32,7 @@ class Driver extends React.Component {
         return(
             <div>
 
-                    <img src={this.state.driver.img} alt='profile' />
+                    {/* <img src={this.state.driver.img} alt='profile' /> */}
                         <div className='flex'>
                             <h2><strong>Name:</strong> {this.state.driver.name}</h2>
                             <h2><strong>Age:</strong> {this.state.driver.age}</h2>
@@ -41,6 +41,8 @@ class Driver extends React.Component {
                             <h2><strong>City:</strong> {this.state.driver.location}</h2>
                             <h2><strong>Avg Cost $:</strong> {this.state.driver.price}</h2>
                         </div>
+                        <h2>{this.state.driver.email}</h2>
+                        <h2>{this.state.driver.bio}</h2>
             </div>
         )
     }

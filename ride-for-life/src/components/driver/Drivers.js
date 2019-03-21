@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 const Drivers = props => {
     return(
         <div>
-            <img src={props.eachDriver.img} alt='profile' />
+            {/* <img src={props.eachDriver.img} alt='profile' /> */}
                         <div className='flex'>
                             <h2><strong>Name:</strong> {props.eachDriver.name}</h2>
                             <h2><strong>Age:</strong> {props.eachDriver.age}</h2>
