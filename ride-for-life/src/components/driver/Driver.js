@@ -24,6 +24,13 @@ class Driver extends React.Component {
         // .catch(error => {this.setState({error: error})})
     }
 
+    updateDriver = (e, driver) => {
+        e.preventDefault()
+        .get(`${apiUri}/api/drivers/${driver.id}`, driver)
+        .then(response => this.setState({driver: response.data}))
+        .catch(error => {this.setState({error: error})})
+    }
+
     
 
     render() {

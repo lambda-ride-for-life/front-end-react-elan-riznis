@@ -15,8 +15,8 @@ class AddUser extends React.Component{
     }
 
 
-    addDriver = (e, driver) => {
-        e.preventDefault();
+    addDriver = (driver) => {
+       
         axios
         .post(`${apiUri}/api/drivers/`, driver, axiosConfig)
         .then(response => {console.log(response) 
