@@ -1,8 +1,9 @@
 import React from 'react'
 import axios from 'axios'
-import { NavLink } from 'react-router-dom'
 import { apiUri } from '../../GlobalVariables'
 import axiosConfig from '../../AxiosConfig'
+import Drivers from './Drivers'
+
 
 class DriverList extends React.Component {
     constructor() {
@@ -15,7 +16,7 @@ class DriverList extends React.Component {
 
     componentDidMount() {
         axios
-        .get(`${apiUri}/api/users`, axiosConfig)
+        .get(`${apiUri}/api/drivers`, axiosConfig)
         .then(response => {this.setState({drivers: response.data})})
         .catch(error => {this.setState({error: error})})
     }
@@ -23,17 +24,20 @@ class DriverList extends React.Component {
     deleteDriver = (e, id) => {
         e.preventDefault()
         axios
-        .delete(`${apiUri}/api/drivers/${id}`)
+        .delete(`${apiUri}/api/drivers/${id}`, axiosConfig)
         .then(response => this.setState({drivers: response.data}))
         .catch(error => console.log(error))
         this.props.history.push('/list')
     }
 
-    updateDriver = (e,) => {
-        e.preventDefault()
-        axios
-        .put(`${apiUri}/api/drivers/${id}`)
-    }
+
+    // updateDriver = (e,) => {
+    //     e.preventDefault()
+    //     axios
+    //     .put(`${apiUri}/api/drivers/${id}`)
+    //     .then()
+    //     .catch()
+    // }
 
 
 
@@ -48,20 +52,9 @@ class DriverList extends React.Component {
                     {this.state.drivers.map(eachDriver => (
                         
                     <div className='list' key={eachDriver.id}>
-                        
-                        <img src={eachDriver.img} alt='profile' />
-                        <div className='flex'>
-                            <h2><strong>Name:</strong> {eachDriver.name}</h2>
-                            <h2><strong>Age:</strong> {eachDriver.age}</h2>
-                        </div>
-                        <div className='flex'>
-                            <h2><strong>City:</strong> {eachDriver.location}</h2>
-                            <h2><strong>Avg Cost $:</strong> {eachDriver.price}</h2>
-                        </div>
-                        <NavLink style={{ textDecoration: 'none' }} to={`/list/${eachDriver.id}`}>
-                            <button>View</button>
-                        </NavLink>
-                        <button onClick={e => this.deleteDriver(e, eachDriver.id)}>delete</button>
+                        <Drivers eachDriver={eachDriver} deleteDriver={this.deleteDriver}/>
+                        {/* <Driver eachDriver={eachDriver} /> */}
+                        {/* <AddUser eachDriver={eachDriver} /> */}
                     </div>))}
                     
                 </div>
