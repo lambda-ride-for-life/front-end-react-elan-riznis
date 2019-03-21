@@ -3,6 +3,9 @@ import axios from 'axios'
 import { NavLink } from 'react-router-dom'
 import { apiUri } from '../../GlobalVariables'
 import axiosConfig from '../../AxiosConfig'
+import Driver from './Driver'
+import Drivers from './Drivers'
+import AddUser from '../NavBar/AddUser'
 
 class DriverList extends React.Component {
     constructor() {
@@ -29,11 +32,19 @@ class DriverList extends React.Component {
         this.props.history.push('/list')
     }
 
-    updateDriver = (e,) => {
-        e.preventDefault()
+    addDriver = (e, driver) => {
+        e.preventDefault();
         axios
-        .put(`${apiUri}/api/drivers/${id}`)
+        .post()
     }
+
+    // updateDriver = (e,) => {
+    //     e.preventDefault()
+    //     axios
+    //     .put(`${apiUri}/api/drivers/${id}`)
+    //     .then()
+    //     .catch()
+    // }
 
 
 
@@ -48,20 +59,9 @@ class DriverList extends React.Component {
                     {this.state.drivers.map(eachDriver => (
                         
                     <div className='list' key={eachDriver.id}>
-                        
-                        <img src={eachDriver.img} alt='profile' />
-                        <div className='flex'>
-                            <h2><strong>Name:</strong> {eachDriver.name}</h2>
-                            <h2><strong>Age:</strong> {eachDriver.age}</h2>
-                        </div>
-                        <div className='flex'>
-                            <h2><strong>City:</strong> {eachDriver.location}</h2>
-                            <h2><strong>Avg Cost $:</strong> {eachDriver.price}</h2>
-                        </div>
-                        <NavLink style={{ textDecoration: 'none' }} to={`/list/${eachDriver.id}`}>
-                            <button>View</button>
-                        </NavLink>
-                        <button onClick={e => this.deleteDriver(e, eachDriver.id)}>delete</button>
+                        <Drivers eachDriver={eachDriver} deleteDriver={this.deleteDriver}/>
+                        {/* <Driver eachDriver={eachDriver} /> */}
+                        {/* <AddUser eachDriver={eachDriver} /> */}
                     </div>))}
                     
                 </div>

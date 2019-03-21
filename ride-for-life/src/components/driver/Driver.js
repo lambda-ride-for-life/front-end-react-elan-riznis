@@ -15,8 +15,8 @@ class Driver extends React.Component {
 
     componentDidMount() {
         axios
-        .get(`${apiUri}/api/users/${this.props.eachDriver.id}`, axiosConfig)
-        .then(response => {this.setState({driver: response.data})})
+        .get(`${apiUri}/api/drivers/${this.props.match.params.id}`, axiosConfig)
+        .then(response => this.setState({driver: response.data}))
         .catch(error => {this.setState({error: error})})
         // axios
         // .get(`${apiUri}/api/reviews`, axiosConfig)
@@ -27,24 +27,20 @@ class Driver extends React.Component {
     
 
     render() {
-        const driverId = this.state.drivers.find(driverId => `${driverId.id}` === this.props.match.params.id)
-        console.log(this.state.drivers)
+        // const driverId = this.state.drivers.find(driverId => `${driverId.id}` === this.props.match.params.id)
+        console.log(this.state.driver)
         return(
             <div>
 
-                {driverId.age}
-                {/* {this.state.drivers.map(driver => (
-                    <div className='list'>
-                        {driver.name}
-
-                    </div>
-                ))} */}
-                {this.state.reviews.map(review => (
-                    <div className='list'>
-                        {review.date}
-                    </div>
-                    
-                ))}
+                    <img src={this.state.driver.img} alt='profile' />
+                        <div className='flex'>
+                            <h2><strong>Name:</strong> {this.state.driver.name}</h2>
+                            <h2><strong>Age:</strong> {this.state.driver.age}</h2>
+                        </div>
+                        <div className='flex'>
+                            <h2><strong>City:</strong> {this.state.driver.location}</h2>
+                            <h2><strong>Avg Cost $:</strong> {this.state.driver.price}</h2>
+                        </div>
             </div>
         )
     }
