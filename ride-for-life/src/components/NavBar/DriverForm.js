@@ -4,7 +4,7 @@ class DriverForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      driver: {
+      driver: this.props.activeDriver || {
         name: '',
         age: '',
         location: '',
@@ -15,6 +15,11 @@ class DriverForm extends Component {
 
   addDriver = event => {
     event.preventDefault();
+    if (this.props.activeDriver) {
+        this.props.updateDriver(event, this.state.driver)
+    } else {
+        this.props.addDriver(this.state.driver)
+    }
     this.setState({
       driver: {
         name: '',
@@ -23,7 +28,17 @@ class DriverForm extends Component {
         price: '',
       }
     });
-    this.props.addDriver(this.state.driver)
+    
+  }
+
+  componentDidUpdate(prevState) {
+    if (
+        this.props.activeDriver && prevState.activeDriver !== this.props.activeDriver
+    ) {
+        this.setState({
+            driver: this.props.activeDriver
+        })
+    }
   }
 
   handleInputChange = e => {

@@ -9,6 +9,7 @@ class AddUser extends React.Component{
     constructor() {
         super();
         this.state ={
+           activeDriver: null,
            driver: [],
            error: ''
         }
@@ -26,13 +27,35 @@ class AddUser extends React.Component{
             console.log(axiosConfig)
             this.setState({error: error})})
     }
+
+    updateDriver = (e, driver) => {
+        e.preventDefault()
+        .put(`${apiUri}/api/drivers/${driver.id}`, driver, axiosConfig)
+        .then(response => {
+            this.setState({
+                activeDriver: null,
+                driver: response.data
+            })
+            this.props.history.push('/list')
+        })
+        .catch(error => {this.setState({error: error})})
+    }
+
+    setUpdateForm = (e, driver) => {
+        e.preventDefault();
+        this.setState({
+            activeDriver: driver
+        });
+        this.props.history.push('/adduser')
+    }
+
     
 
 
     render() {
 
         return(
-            <DriverForm addDriver={this.addDriver}/>
+            <DriverForm addDriver={this.addDriver} updateDriver={this.updateDriver} activeDriver={this.state.activeDriver}/>
         )
     }
 }

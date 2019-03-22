@@ -35,7 +35,7 @@ class DriverList extends React.Component {
         .delete(`${apiUri}/api/drivers/${id}`, axiosConfig)
         
         .then(response => {
-            
+            console.log(response)
             this.setState({drivers: response.data})})
         .catch(error => console.log(error))
         this.props.history.push('/list')

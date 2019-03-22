@@ -1,12 +1,15 @@
 import React from 'react'
 import axios from 'axios'
+import {Route} from 'react-router-dom'
 import { apiUri } from '../../GlobalVariables'
 import axiosConfig from '../../AxiosConfig'
+import EditDriver from './EditDriver'
 
 class Driver extends React.Component {
     constructor() {
         super();
         this.state = {
+            activeDriver: null,
             driver: [],
             reviews: []
         }
@@ -26,9 +29,27 @@ class Driver extends React.Component {
 
     updateDriver = (e, driver) => {
         e.preventDefault()
-        .get(`${apiUri}/api/drivers/${driver.id}`, driver)
-        .then(response => this.setState({driver: response.data}))
+        axios
+        .put(`${apiUri}/api/drivers/${this.state.driver.id}`, driver, axiosConfig)
+        .then(response => {
+            this.setState({
+                activeDriver: null,
+                driver: response.data
+            })
+            this.props.history.push('/list')
+        })
         .catch(error => {this.setState({error: error})})
+    }
+
+
+    
+
+    setUpdateForm = (e, driver) => {
+        e.preventDefault();
+        this.setState({
+            activeDriver: driver
+        });
+        // this.props.history.push('/adduser')
     }
 
     
@@ -50,6 +71,10 @@ class Driver extends React.Component {
                         </div>
                         <h2>{this.state.driver.email}</h2>
                         <h2>{this.state.driver.bio}</h2>
+                        <button onClick={e => this.setUpdateForm(e, this.state.driver)}>Update Profile</button>
+                        <div className={this.state.activeDriver === null ? 'none' : ''}>
+                            <EditDriver activeDriver={this.state.activeDriver} driver={this.state.driver} updateDriver={this.updateDriver}/>
+                        </div>
             </div>
         )
     }
