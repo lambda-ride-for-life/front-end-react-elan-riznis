@@ -7,6 +7,7 @@ class Driver extends React.Component {
     constructor() {
         super();
         this.state = {
+            activeDriver: null,
             driver: [],
             reviews: []
         }
@@ -24,11 +25,14 @@ class Driver extends React.Component {
         // .catch(error => {this.setState({error: error})})
     }
 
-    updateDriver = (e, driver) => {
-        e.preventDefault()
-        .get(`${apiUri}/api/drivers/${driver.id}`, driver)
-        .then(response => this.setState({driver: response.data}))
-        .catch(error => {this.setState({error: error})})
+    
+
+    setUpdateForm = (e, driver) => {
+        e.preventDefault();
+        this.setState({
+            activeDriver: driver
+        });
+        this.props.history.push('/adduser')
     }
 
     
@@ -50,6 +54,7 @@ class Driver extends React.Component {
                         </div>
                         <h2>{this.state.driver.email}</h2>
                         <h2>{this.state.driver.bio}</h2>
+                        <button onClick={e => this.setUpdateForm(e)}>Update Profile</button>
             </div>
         )
     }
