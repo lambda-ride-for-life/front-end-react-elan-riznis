@@ -71,8 +71,10 @@ class Driver extends React.Component {
                         </div>
                         <h2>{this.state.driver.email}</h2>
                         <h2>{this.state.driver.bio}</h2>
-                        <button onClick={e => this.setUpdateForm(e)}>Update Profile</button>
-                        <EditDriver activeDriver={this.state.activeDriver} driver={this.state.driver} updateDriver={this.updateDriver}/>
+                        <button onClick={e => this.setUpdateForm(e, this.state.driver)}>Update Profile</button>
+                        <div className={this.state.activeDriver === null ? 'none' : ''}>
+                            <EditDriver activeDriver={this.state.activeDriver} driver={this.state.driver} updateDriver={this.updateDriver}/>
+                        </div>
             </div>
         )
     }
