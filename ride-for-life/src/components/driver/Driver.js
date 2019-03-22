@@ -1,7 +1,9 @@
 import React from 'react'
 import axios from 'axios'
+import {Route} from 'react-router-dom'
 import { apiUri } from '../../GlobalVariables'
 import axiosConfig from '../../AxiosConfig'
+import EditDriver from './EditDriver'
 
 class Driver extends React.Component {
     constructor() {
@@ -24,6 +26,21 @@ class Driver extends React.Component {
         // .then(response => {this.setState({reviews: response.data})})
         // .catch(error => {this.setState({error: error})})
     }
+
+    updateDriver = (e, driver) => {
+        e.preventDefault()
+        axios
+        .put(`${apiUri}/api/drivers/${this.state.driver.id}`, driver, axiosConfig)
+        .then(response => {
+            this.setState({
+                activeDriver: null,
+                driver: response.data
+            })
+            this.props.history.push('/list')
+        })
+        .catch(error => {this.setState({error: error})})
+    }
+
 
     
 
@@ -54,7 +71,8 @@ class Driver extends React.Component {
                         </div>
                         <h2>{this.state.driver.email}</h2>
                         <h2>{this.state.driver.bio}</h2>
-                        <button onClick={e => this.setUpdateForm(e)}>Update Profile</button>
+                        {/* <button onClick={e => this.setUpdateForm(e)}>Update Profile</button> */}
+                        <EditDriver activeDriver={this.state.activeDriver} driver={this.state.driver} updateDriver={this.updateDriver}/>
             </div>
         )
     }

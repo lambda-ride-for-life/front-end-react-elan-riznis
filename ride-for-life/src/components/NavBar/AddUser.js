@@ -30,7 +30,7 @@ class AddUser extends React.Component{
 
     updateDriver = (e, driver) => {
         e.preventDefault()
-        .put(`${apiUri}/api/drivers/${driver.id}`, driver)
+        .put(`${apiUri}/api/drivers/${driver.id}`, driver, axiosConfig)
         .then(response => {
             this.setState({
                 activeDriver: null,
@@ -40,6 +40,15 @@ class AddUser extends React.Component{
         })
         .catch(error => {this.setState({error: error})})
     }
+
+    setUpdateForm = (e, driver) => {
+        e.preventDefault();
+        this.setState({
+            activeDriver: driver
+        });
+        this.props.history.push('/adduser')
+    }
+
     
 
 
