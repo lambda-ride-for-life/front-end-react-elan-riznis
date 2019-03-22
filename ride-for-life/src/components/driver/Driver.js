@@ -9,7 +9,9 @@ class Driver extends React.Component {
     constructor() {
         super();
         this.state = {
-            activeDriver: null,
+            activeDriver: {
+                name: ''
+            },
             driver: [],
             reviews: []
         }

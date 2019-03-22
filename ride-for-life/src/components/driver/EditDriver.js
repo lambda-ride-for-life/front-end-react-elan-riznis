@@ -1,44 +1,58 @@
 import React from 'react'
+import axios from 'axios'
+import { apiUri } from '../../GlobalVariables'
+import axiosConfig from '../../AxiosConfig'
 
 class EditDriver extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            driver: this.props.activeDriver
+            activeDriver: {
+                name: ''
+            }
+            // driver: this.props.activeDriver
         }
+    }
+
+    componentDidMount() {
+        axios
+        .get(`${apiUri}/api/drivers/${this.props.driver.id}`, axiosConfig)
+        .then(response => this.setState({activeDriver: {
+            name: response.data.name}}))
+        .catch(error => {this.setState({error: error})})
     }
 
 
     editDriver = event => {
         event.preventDefault();
         
-            
+        this.props.updateDriver(event, this.state.activeDriver)
         this.setState({
-          driver: {
+          activeDriver: {
             name: '',
-            age: '',
-            location: '',
-            price: '',
+            // age: '',
+            // location: '',
+            // price: '',
           }
         });
-        this.props.updateDriver(event, this.state.driver)
+        
       }
     
-      componentDidUpdate(prevState) {
-        if (
-            this.props.activeDriver && prevState.activeDriver !== this.props.activeDriver
-        ) {
-            this.setState({
-                driver: this.props.activeDriver
-            })
-        }
-      }
+    //   componentDidUpdate(prevState) {
+    //     if (
+    //         this.props.activeDriver && prevState.activeDriver !== this.props.activeDriver
+    //     ) {
+    //         this.setState({
+    //             driver: this.props.activeDriver
+    //         })
+    //     }
+    //   }
     
       handleInputChange = e => {
         e.persist()
         this.setState(prevState => ({
           driver:{
-            ...prevState.driver,
+            ...prevState.activeDriver,
             [e.target.name]: e.target.value
              }
           }));
