@@ -1,58 +1,44 @@
 import React from 'react'
-import axios from 'axios'
-import { apiUri } from '../../GlobalVariables'
-import axiosConfig from '../../AxiosConfig'
 
 class EditDriver extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeDriver: {
-                name: ''
-            }
-            // driver: this.props.activeDriver
+            driver: this.props.driver
         }
-    }
-
-    componentDidMount() {
-        axios
-        .get(`${apiUri}/api/drivers/${this.props.driver.id}`, axiosConfig)
-        .then(response => this.setState({activeDriver: {
-            name: response.data.name}}))
-        .catch(error => {this.setState({error: error})})
     }
 
 
     editDriver = event => {
         event.preventDefault();
-        
-        this.props.updateDriver(event, this.state.activeDriver)
+
+
         this.setState({
-          activeDriver: {
+          driver: {
             name: '',
-            // age: '',
-            // location: '',
-            // price: '',
+            age: '',
+            location: '',
+            price: '',
           }
         });
-        
+        this.props.updateDriver(event, this.state.driver)
       }
-    
-    //   componentDidUpdate(prevState) {
-    //     if (
-    //         this.props.activeDriver && prevState.activeDriver !== this.props.activeDriver
-    //     ) {
-    //         this.setState({
-    //             driver: this.props.activeDriver
-    //         })
-    //     }
-    //   }
-    
+
+      componentDidUpdate(prevState) {
+        if (
+            this.props.activeDriver && prevState.activeDriver !== this.props.activeDriver
+        ) {
+            this.setState({
+                driver: this.props.activeDriver
+            })
+        }
+      }
+
       handleInputChange = e => {
         e.persist()
         this.setState(prevState => ({
           driver:{
-            ...prevState.activeDriver,
+            ...prevState.driver,
             [e.target.name]: e.target.value
              }
           }));
@@ -67,8 +53,29 @@ class EditDriver extends React.Component {
             type='text'
             onChange={this.handleInputChange}
             placeholder="name"
-            value={this.props.driver.name}
+            value={this.state.driver.name}
             name="name"
+          />
+          <input
+            type='number'
+            onChange={this.handleInputChange}
+            placeholder="name"
+            value={this.state.driver.age}
+            name="age"
+          />
+          <input
+            type='text'
+            onChange={this.handleInputChange}
+            placeholder="name"
+            value={this.state.driver.location}
+            name="location"
+          />
+          <input
+            type='number'
+            onChange={this.handleInputChange}
+            placeholder="name"
+            value={this.state.driver.price}
+            name="price"
           />
           <button type="submit">Edit Driver</button>
         </form>
@@ -78,4 +85,4 @@ class EditDriver extends React.Component {
 }
 
 
-export default EditDriver
+export default EditDriver 
